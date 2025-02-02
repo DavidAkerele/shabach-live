@@ -8,23 +8,22 @@ interface LinkItem {
 }
 
 const links: LinkItem[] = [
-  { name: "Instagram", url: "https://www.instagram.com" },
-  { name: "LinkedIn", url: "https://www.linkedin.com" },
-  { name: "X (FKA Twitter)", url: "https://x.com" },
+
   { name: "Work", url: "/work" }, // You can link to internal pages with Next.js
   { name: "Contact", url: "/contact" }, // You can link to internal pages with Next.js
   { name: "Book a call", url: "/book-a-call" }, // You can link to internal pages with Next.js
 ];
 
-const Footer: React.FC = () => {
+const Navbar: React.FC = () => {
   return (
-    <div className="flex bg-[#FBF7F0] px-[360px] justify-between items-center pb-[96px]">
-      <img src="/shabachdark.svg" alt="logo"/>
+    <div className="flex bg-[#121212] text-white px-[360px] justify-between items-center pb-[48px] pt-[36px]">
+      {/* <div className="magilio text-[34px]">shabach</div> */}
+      <img src="/shabachlight.svg" alt="logo"/>
       <div>
-        <ul className="flex gap-[18px] text-[24px]">
+        <ul className="flex gap-[18px] items-center justify-center text-[24px]">
           {links.map((link) => (
-            <li key={link.name}>
-              <Link href={link.url} className="hover:underline hover:cursor-pointer  text-[20px] leading-[24.2px]">
+            <li key={link.name} className="text-center justify-center flex">
+              <Link href={link.url} className=" text-[20px] hover:cursor-pointer leading-[24.2px]  hover:underline">
                 {link.name}
               </Link>
             </li>
@@ -35,4 +34,4 @@ const Footer: React.FC = () => {
   );
 };
 
-export default Footer;
+export default Navbar;

@@ -15,3 +15,24 @@ body {
 .magilio {
     font-family: "Magilio", sans-serif !important;
 }
+
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); } /* Adjust based on content width */
+  }
+  
+  .animate-scroll {
+    display: flex;
+    width: max-content; /* Ensure enough width for smooth looping */
+    animation: scroll 35s linear infinite;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .custom-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
