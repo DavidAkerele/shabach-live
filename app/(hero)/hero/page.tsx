@@ -47,7 +47,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <div className="bg-[#121212] pl-[360px] text-white flex flex-col items-center pt-[20px] pb-[120px]">
+    <div className="bg-[#121212] pl-[60px] text-white flex flex-col items-center pt-[20px] pb-[120px]">
       <div className="relative w-full overflow-hidden">
         <div
           ref={scrollRef}

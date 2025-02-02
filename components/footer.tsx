@@ -18,8 +18,8 @@ const links: LinkItem[] = [
 
 const Footer: React.FC = () => {
   return (
-    <div className="flex bg-[#FBF7F0] px-[360px] justify-between items-center pb-[96px]">
-      <img src="/shabachdark.svg" alt="logo"/>
+    <div className="flex bg-[#FBF7F0] px-[60px] justify-between items-center pb-[96px]">
+      <img src="/shabachdark.svg" alt="logooo"/>
       <div>
         <ul className="flex gap-[18px] text-[24px]">
           {links.map((link) => (

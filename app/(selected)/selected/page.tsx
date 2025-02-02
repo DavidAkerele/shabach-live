@@ -82,14 +82,14 @@ export default function Selected() {
 
   return (
     <div className="bg-[#121212] text-white flex flex-col items-center py-[96px]">
-      <div className="w-full px-[360px]">
+      <div className="w-full px-[60px]">
         <h2 className="font-[400] text-[42px] leading-[46.2px] mb-[48px] magilio">Selected <br/> Works</h2>
       </div>
       <div className="w-full space-y-4">
         {data.map((item, index) => (
           <div key={index} className="border-b border-[#202020] py-4">
             <div
-              className="flex justify-between px-[360px] items-center cursor-pointer py-2 gap-4"
+              className="flex justify-between px-[60px] items-center cursor-pointer py-2 gap-4"
               onClick={() => toggleDropdown(index)}
             >
               {/* Render SVG if title is an image, otherwise show text */}

@@ -16,7 +16,7 @@ const links: LinkItem[] = [
 
 const Navbar: React.FC = () => {
   return (
-    <div className="flex bg-[#121212] text-white px-[360px] justify-between items-center pb-[48px] pt-[36px]">
+    <div className="flex bg-[#121212] text-white px-[60px] justify-between items-center pb-[48px] pt-[36px]">
       {/* <div className="magilio text-[34px]">shabach</div> */}
       <img src="/shabachlight.svg" alt="logo"/>
       <div>

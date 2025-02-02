@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Contact() {
   return (
-    <div className="flex bg-[#FBF7F0] px-[360px] flex-col items-center justify-center py-12 relative">
+    <div className="flex bg-[#FBF7F0] px-[60px] flex-col items-center justify-center py-12 relative">
       {/* Image Gallery with Overlay */}
       <div className="flex w-full justify-between">
         <div className="relative w-[380px]">
