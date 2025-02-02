@@ -1,36 +1,55 @@
-import React from "react";
-import Link from "next/link"; // Importing Next.js Link for navigation
+"use client";
 
-// Define a type for the list items, so we can map over them
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { client, urlFor } from "../lib/sanity"; // Ensure correct import
+
 interface LinkItem {
   name: string;
   url: string;
 }
 
-const links: LinkItem[] = [
-  { name: "Instagram", url: "https://www.instagram.com" },
-  { name: "LinkedIn", url: "https://www.linkedin.com" },
-  { name: "X (FKA Twitter)", url: "https://x.com" },
-  { name: "Work", url: "/work" }, // You can link to internal pages with Next.js
-  { name: "Contact", url: "/contact" }, // You can link to internal pages with Next.js
-  { name: "Book a call", url: "/book-a-call" }, // You can link to internal pages with Next.js
-];
-
 const Footer: React.FC = () => {
+  const [logo, setLogo] = useState<string>("");
+  const [links, setLinks] = useState<LinkItem[]>([]);
+
+  useEffect(() => {
+    const fetchFooterData = async () => {
+      try {
+        const data = await client.fetch(`*[_type == "footer"][0] {logo, links}`);
+        if (data) {
+          setLogo(urlFor(data.logo).url()); // Use Sanity's URL builder
+          setLinks(data.links || []);
+        }
+      } catch (error) {
+        console.error("Error fetching footer data:", error);
+      }
+    };
+
+    fetchFooterData();
+  }, []);
+
   return (
     <div className="flex bg-[#FBF7F0] px-[60px] justify-between items-center pb-[96px]">
-      <img src="/shabachdark.svg" alt="logooo"/>
-      <div>
-        <ul className="flex gap-[18px] text-[24px]">
-          {links.map((link) => (
-            <li key={link.name}>
-              <Link href={link.url} className="hover:underline hover:cursor-pointer  text-[20px] leading-[24.2px]">
-                {link.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
+      {logo && (
+        <Image
+          src={logo}
+          alt="logo"
+          width={150}
+          height={50}
+          priority
+        />
+      )}
+      <ul className="flex gap-[18px] text-[24px]">
+        {links.map((link) => (
+          <li key={link.name}>
+            <Link href={link.url} className="hover:underline hover:cursor-pointer text-[20px] leading-[24.2px]">
+              {link.name}
+            </Link>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

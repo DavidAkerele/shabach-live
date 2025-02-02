@@ -66,9 +66,9 @@ export default function Hero() {
                 <Image
                   src={image.brand}
                   alt="brand logo"
-                  width={50}
+                  width={100}
                   height={50}
-                  className="w-[100px] h-[50px] object-contain"
+                  className="w-[auto] h-[20px] object-contain"
                 />
               </div>
             </div>

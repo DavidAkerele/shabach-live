@@ -95,13 +95,15 @@ export default function Selected() {
               {/* Render SVG if title is an image, otherwise show text */}
               <span className="text-xl font-semibold flex-1">
                 {item.title.endsWith(".svg") ? (
-                  <Image
+                  <div className="w-full items-start flex justify-start ">
+                    <Image
                     src={item.title}
                     alt="Logo"
                     width={100}
                     height={50}
-                    className="w-[120px] h-auto object-contain"
+                    className="w-[auto] h-[20px] object-contain flex justify-start items-start flex-col"
                   />
+                  </div>
                 ) : (
                   item.title
                 )}
