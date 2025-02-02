@@ -1,8 +1,10 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
-import client, { urlFor } from '@/lib/sanity'; // Import the helper function
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
+import client, { urlFor } from "@/lib/sanity"; // Import the helper function
+
+import { cn } from "@/lib/utils";
 
 interface WorkItem {
   title: string;
@@ -26,7 +28,7 @@ export default function Selected() {
         const data = await client.fetch('*[_type == "selectedWorks"]');
         setWorks(data);
       } catch (error) {
-        console.error('Error fetching works:', error);
+        console.error("Error fetching works:", error);
       }
     };
 
@@ -34,9 +36,9 @@ export default function Selected() {
   }, []);
 
   return (
-    <div className="bg-[#121212] text-white flex flex-col items-center py-[96px]">
-      <div className="w-full px-[60px]">
-        <h2 className="font-[400] text-[42px] leading-[46.2px] mb-[48px] magilio">
+    <div id="work" className="bg-[#121212] text-white flex flex-col items-center py-[96px]">
+      <div className="w-full px-[60px] lg:px-[30px]">
+        <h2 className="font-[400] text-[42px] leading-[46.2px] mb-[48px] magilio lg:text-[30px] lg:leading-[33px]">
           Selected <br /> Works
         </h2>
       </div>
@@ -44,15 +46,15 @@ export default function Selected() {
         {works.map((item, index) => (
           <div key={index} className="border-b border-[#202020] py-4">
             <div
-              className="flex justify-between px-[60px] items-center cursor-pointer py-2 gap-4"
+              className=" justify-between px-[60px] lg:px-[30px] items-center cursor-pointer py-2 gap-7 lg:grid grid grid-cols-[33%_33%_33%] lg:gap-0 sm:grid-cols-[33%_53%_13%]"
               onClick={() => toggleDropdown(index)}
             >
               {/* Render logo image if available, otherwise render text title */}
-              <span className="text-xl font-semibold flex-1">
+              <span className="text-xl  font-semibold flex-1">
                 {item.logo ? (
                   <div className="w-full items-start flex justify-start">
                     <Image
-                      src={urlFor(item.logo).width(100).height(50).url() || ''}
+                      src={urlFor(item.logo).width(100).height(50).url() || ""}
                       alt="Logo"
                       width={100}
                       height={50}
@@ -64,31 +66,44 @@ export default function Selected() {
                 )}
               </span>
 
-              <span className="text-white flex-1 text-center">
-                EOY Party <span className="text-[#202020]">{item.year}</span>
+              <span className="text-white flex-1 sm:flex-2 text-center lg:text-[16px] flex items-center justify-center whitespace-nowrap">
+                EOY Party{" "}
+                <span className="text-[#202020] pl-[12px] lg:pl-[6px]">
+                  {item.year}
+                </span>
               </span>
-              <span className="flex-1 text-right text-[24px] font-[200]">
-                {openIndex === index ? '−' : '+'}
+              <span className="  text-right text-[24px] font-[200] ">
+                {openIndex === index ? "−" : "+"}
               </span>
             </div>
 
-            {openIndex === index && (
-              <div className="mt-4 flex gap-6 ml-[60px]">
-                <p className="w-1/3 text-gray-300">{item.description}</p>
-                <div className="w-2/3 flex gap-4 scrollbar-hide overflow-x-auto snap-x snap-mandatory scroll-smooth custom-scrollbar">
-                  {item.images.map((image, imgIndex) => (
-                    <Image
-                      key={imgIndex}
-                      src={urlFor(image).width(396).height(380).url() || ''}
-                      alt={`Gallery ${imgIndex}`}
-                      width={396}
-                      height={380}
-                      className=""
-                    />
-                  ))}
+            {/* {openIndex === index && ( */}
+            <div
+              className={cn(
+                "mt-4 overflow-hidden flex gap-6 ml-[60px] lg:ml-[30px]",
+                openIndex === index
+                  ? "lg:h-[321px] h-[380px]"
+                  : "lg:h-[0px] h-[0px]"
+              )}
+              style={{ transition: "0.3s ease-in-out" }}
+            >
+              <div className="w-[full] flex gap-4 scrollbar-hide overflow-x-auto snap-x snap-mandatory scroll-smooth custom-scrollbar">
+                <div className=" lg:w-[289px] w-[373px]">
+                  <p className=" text-gray-300 lg:w-[289px] w-[373px] ">
+                    {item.description}
+                  </p>
                 </div>
+                {item.images.map((image, imgIndex) => (
+                  <img
+                    key={imgIndex}
+                    src={urlFor(image).url() || ""}
+                    alt={`Gallery ${imgIndex}`}
+                    className=" lg:w-[90vw] h-[380px] snap lg:h-[321.46px]"
+                  />
+                ))}
               </div>
-            )}
+            </div>
+            {/* )} */}
           </div>
         ))}
       </div>

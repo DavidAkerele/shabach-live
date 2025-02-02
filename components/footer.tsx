@@ -31,7 +31,7 @@ const Footer: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex bg-[#FBF7F0] px-[60px] justify-between items-center pb-[96px]">
+    <div className="flex bg-[#FBF7F0] px-[60px] lg:px-[30px]  lg:flex-col-reverse lg:justify-start justify-between items-center lg:items-start  pb-[96px] ">
       {logo && (
         <Image
           src={logo}
@@ -39,9 +39,10 @@ const Footer: React.FC = () => {
           width={150}
           height={50}
           priority
+          className="lg:mt-[36px]"
         />
       )}
-      <ul className="flex gap-[18px] text-[24px]">
+      <ul className="flex gap-[18px] lg:gap-[12px] lg:flex-col text-[24px]">
         {links.map((link) => (
           <li key={link.name}>
             <Link href={link.url} className="hover:underline hover:cursor-pointer text-[20px] leading-[24.2px]">

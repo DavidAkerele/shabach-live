@@ -56,20 +56,20 @@ export default function Hero() {
   }, []);
 
   return (
-    <div className="bg-[#121212] pl-[60px] text-white flex flex-col items-center pt-[20px] pb-[120px]">
+    <div className="bg-[#121212] pl-[60px] lg:pl-[30px] text-white flex flex-col items-center pt-[20px] pb-[120px] lg:pb-[60px]">
       <div className="relative w-full overflow-hidden">
         <div
           ref={scrollRef}
           className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide custom-scrollbar scroll-smooth"
         >
           {[...images, ...images].map((image, index) => (
-            <div key={index} className="snap-start flex flex-col items-center min-w-[400px] w-full">
+            <div key={index} className="snap-start flex flex-col items-center min-w-[400px] w-full lg:items-left lg:justify-start lg:min-w-[289px]">
               <Image
                 src={urlFor(image.src).width(400).height(600).url() || ''}
                 alt="Image"
                 width={400}
                 height={300}
-                className=""
+                className="lg:w-[289px] lg:h-[434px]"
               />
               <div className="w-full flex justify-start mt-3">
                 <Image

@@ -6,6 +6,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    scroll-behavior: smooth ;
 }
 
 body {
@@ -26,6 +27,8 @@ body {
     width: max-content; /* Ensure enough width for smooth looping */
     animation: scroll 35s linear infinite;
   }
+
+ 
   
   .custom-scrollbar::-webkit-scrollbar {
     display: none;

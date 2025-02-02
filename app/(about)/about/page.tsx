@@ -32,8 +32,8 @@ export default function About() {
   }
 
   return (
-    <div className="bg-[#FBF7F0] flex flex-col items-center py-[120px]">
-      <div className="w-[500px]">
+    <div className="bg-[#FBF7F0] flex flex-col items-center py-[120px] lg:px-[30px] lg:py-[96px] ">
+      <div className="w-[500px] lg:w-[100%] ">
         {/* Render dynamic hero image from Sanity */}
         {aboutContent.heroImage && (
           <Image
@@ -41,20 +41,20 @@ export default function About() {
             alt="Hero Image"
             width={500}
             height={336}
-            className="w-[100%] h-[100%] object-cover mb-[36px]"
+            className="w-[100%] h-[100%] object-cover mb-[36px] lg:w-[full] lg:h-[335px]"
           />
         )}
 
         <div>
-          <h1 className="magilio text-[42px] leading-[46.2px] font-[400] mb-[24px]">
+          <h1 className="magilio text-[42px] leading-[46.2px] font-[400] mb-[24px] lg:text-[30px] lg:leading-[33px] lg:w-[218px]">
             {aboutContent.headline || 'Capturing life One shot at a time'}
           </h1>
           {/* Render both descriptions */}
-          <p className="text-[24px] leading-[28.8px] font-[400] mb-[24px]">
+          <p className="text-[24px] leading-[28.8px] font-[400] mb-[24px] lg:text-[16px] lg:leading-[22.4px] text-[#202020]">
             {aboutContent.description1 ||
               'Through my lens, I capture moments that tell stories—raw, authentic, and timeless. Whether it\'s portraits, events, or editorial work, I focus on the details that make each shot unforgettable. Let’s create something beautiful together.'}
           </p>
-          <p className="text-[24px] leading-[28.8px] font-[400]">
+          <p className="text-[24px] leading-[28.8px] font-[400] lg:text-[16px] lg:leading-[22.4px] text-[#202020]">
             {aboutContent.description2 ||
               'Whether it’s portraits that reveal personality, event photography that preserves memories, or editorial work that speaks volumes, my goal is to create images that feel authentic and timeless. Let’s turn moments into art—one frame at a time.'}
           </p>

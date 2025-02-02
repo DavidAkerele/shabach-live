@@ -8,22 +8,24 @@ interface LinkItem {
 }
 
 const links: LinkItem[] = [
-
-  { name: "Work", url: "/work" }, // You can link to internal pages with Next.js
-  { name: "Contact", url: "/contact" }, // You can link to internal pages with Next.js
-  { name: "Book a call", url: "/book-a-call" }, // You can link to internal pages with Next.js
+  { name: "Work", url: "/work" },
+  { name: "Contact", url: "/contact" },
+  { name: "Book a call", url: "/book-a-call" },
 ];
 
 const Navbar: React.FC = () => {
   return (
-    <div className="flex bg-[#121212] text-white px-[60px] justify-between items-center pb-[48px] pt-[36px]">
-      {/* <div className="magilio text-[34px]">shabach</div> */}
-      <img src="/shabachlight.svg" alt="logo"/>
-      <div>
+    <div className="flex bg-[#121212] text-white px-[60px] lg:px-[30px] justify-between items-center pb-[48px] pt-[36px]">
+      <img src="/shabachlight.svg" alt="logo" />
+
+      <div className=" sm:hidden ">
         <ul className="flex gap-[18px] items-center justify-center text-[24px]">
           {links.map((link) => (
             <li key={link.name} className="text-center justify-center flex">
-              <Link href={link.url} className=" text-[20px] hover:cursor-pointer leading-[24.2px]  hover:underline">
+              <Link
+                href={link.url}
+                className=" text-[20px] hover:cursor-pointer leading-[24.2px]  hover:underline"
+              >
                 {link.name}
               </Link>
             </li>
