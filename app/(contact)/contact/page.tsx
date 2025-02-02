@@ -32,7 +32,7 @@ export default function Contact() {
 
       {/* Overlay Text */}
       <div className="absolute inset-0 flex items-center justify-center  bg-opacity-50 bg-[#FBF7F0]">
-        <span className=" text-[#6F511D] text-[96px] font-[400] magilio">
+        <span className=" text-[#6F511D] text-[96px] font-[400] magilio hover:underline hover:cursor-pointer">
           foto@shabach.me
         </span>
       </div>

@@ -1,24 +1,33 @@
-"use client";
+'use client';
 
-import React, { useEffect, useRef } from "react";
-import Image from "next/image";
+import React, { useEffect, useState, useRef } from 'react';
+import Image from 'next/image';
+import client, { urlFor } from '@/lib/sanity'; // Import the helper function
 
 interface ImageItem {
-  src: string;
-  brand: string;
+  src: any; // Sanity image object (not just string)
+  brand: any; // Sanity image object (not just string)
 }
 
-const images: ImageItem[] = [
-  { src: "/contact3.png", brand: "/Moniepoint.svg" },
-  { src: "/contact1.png", brand: "/MTN.svg" },
-  { src: "/contact2.png", brand: "/Betway.svg" },
-  { src: "/contact3.png", brand: "/Moniepoint.svg" },
-  { src: "/contact1.png", brand: "/MTN.svg" },
-  { src: "/contact2.png", brand: "/Betway.svg" },
-];
-
 export default function Hero() {
+  const [images, setImages] = useState<ImageItem[]>([]);
   const scrollRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const fetchHeroImages = async () => {
+      try {
+        // Fetch hero images from Sanity
+        const data = await client.fetch(`*[_type == "heroImages"][0] {images}`);
+        if (data && data.images) {
+          setImages(data.images);
+        }
+      } catch (error) {
+        console.error('Error fetching hero images:', error);
+      }
+    };
+
+    fetchHeroImages();
+  }, []);
 
   useEffect(() => {
     const scrollContainer = scrollRef.current;
@@ -28,15 +37,15 @@ export default function Hero() {
 
     const scrollImages = () => {
       if (!scrollContainer) return;
-      
+
       const children = scrollContainer.children as HTMLCollectionOf<HTMLElement>;
-      if (index >= children.length / 2) { 
-        scrollContainer.scrollTo({ left: 0, behavior: "instant" });
+      if (index >= children.length / 2) {
+        scrollContainer.scrollTo({ left: 0, behavior: 'instant' });
         index = 0;
       }
 
       const nextPosition = children[index].offsetLeft;
-      scrollContainer.scrollTo({ left: nextPosition, behavior: "smooth" });
+      scrollContainer.scrollTo({ left: nextPosition, behavior: 'smooth' });
 
       index++;
     };
@@ -56,16 +65,16 @@ export default function Hero() {
           {[...images, ...images].map((image, index) => (
             <div key={index} className="snap-start flex flex-col items-center min-w-[400px] w-full">
               <Image
-                src={image.src}
-                alt="image"
+                src={urlFor(image.src).width(400).height(600).url() || ''}
+                alt="Image"
                 width={400}
                 height={300}
-                className="rounded-lg"
+                className=""
               />
               <div className="w-full flex justify-start mt-3">
                 <Image
-                  src={image.brand}
-                  alt="brand logo"
+                  src={urlFor(image.brand).width(100).height(50).url() || ''}
+                  alt="Brand logo"
                   width={100}
                   height={50}
                   className="w-[auto] h-[20px] object-contain"
