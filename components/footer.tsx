@@ -31,7 +31,7 @@ const Footer: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex bg-[#FBF7F0] px-[60px] lg:px-[30px]  lg:flex-col-reverse lg:justify-start justify-between items-center lg:items-start  pb-[96px] lg:pb-[60px]">
+    <div className="flex bg-[#FBF7F0] px-[60px] lg:px-[30px]  lg:flex-col-reverse lg:justify-start justify-between items-center lg:items-start  pb-[60px] lg:pb-[60px]">
       {logo && (
         <Image
           src={logo}

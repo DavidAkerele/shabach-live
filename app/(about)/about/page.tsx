@@ -32,7 +32,7 @@ export default function About() {
   }
 
   return (
-    <div className="bg-[#FBF7F0] flex flex-col items-center py-[120px] lg:px-[30px] lg:py-[96px] ">
+    <div id='about' className="bg-[#FBF7F0] flex flex-col items-center py-[120px] lg:px-[30px] lg:py-[96px] ">
       <div className="w-[500px] lg:w-[100%] ">
         {/* Render dynamic hero image from Sanity */}
         {aboutContent.heroImage && (

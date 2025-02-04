@@ -8,14 +8,14 @@ interface LinkItem {
 }
 
 const links: LinkItem[] = [
-  { name: "Work", url: "/work" },
-  { name: "Contact", url: "/contact" },
-  { name: "Book a call", url: "/book-a-call" },
+  { name: "About", url: "#about" },
+  { name: "Work", url: "#work" },
+  { name: "Contact", url: "#contact" },
 ];
 
 const Navbar: React.FC = () => {
   return (
-    <div className="flex bg-[#121212] text-white px-[60px] lg:px-[30px] justify-between items-center pb-[48px] pt-[36px]">
+    <div className="flex bg-[#121212] text-white px-[60px] lg:px-[30px] justify-between items-center pb-[36px] pt-[48px] lg:pb-[24px] lg:pt-[60px]">
       <img src="/shabachlight.svg" alt="logo" />
 
       <div className=" sm:hidden ">
