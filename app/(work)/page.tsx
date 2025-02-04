@@ -19,7 +19,7 @@ export default function Work() {
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Shabach Rotimi" />
         <meta property="og:description" content="Photographer & Videographer" />
-        <meta property="og:image" content="https://opengraph.b-cdn.net/production/images/b747bc85-bbb9-4510-bd11-c5a9d70fec74.jpg?token=ESk4S5xXCLt9388aqXxjWW2z-MfWpTAM5EjubWdXs6k&height=630&width=1200&expires=33274666489" />
+        <meta property="og:image" content="/ogimage.jpg" />
         
         {/* Twitter Meta Tags */}
         <meta name="twitter:card" content="summary_large_image" />
@@ -27,7 +27,7 @@ export default function Work() {
         <meta property="twitter:url" content="https://shabach-live-2.vercel.app/" />
         <meta name="twitter:title" content="Shabach Rotimi" />
         <meta name="twitter:description" content="Photographer & Videographer" />
-        <meta name="twitter:image" content="https://opengraph.b-cdn.net/production/images/b747bc85-bbb9-4510-bd11-c5a9d70fec74.jpg?token=ESk4S5xXCLt9388aqXxjWW2z-MfWpTAM5EjubWdXs6k&height=630&width=1200&expires=33274666489" />
+        <meta name="twitter:image" content="/ogimage.jpg" />
       </Head>
       <Navbar />
       <div>
