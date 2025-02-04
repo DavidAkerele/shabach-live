@@ -34,6 +34,7 @@ export default function Hero() {
     if (!scrollContainer) return;
 
     let index = 0;
+    const scrollSpeed = 4000; // Change speed here (in milliseconds)
 
     const scrollImages = () => {
       if (!scrollContainer) return;
@@ -50,10 +51,10 @@ export default function Hero() {
       index++;
     };
 
-    const interval = setInterval(scrollImages, 2000);
+    const interval = setInterval(scrollImages, scrollSpeed);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [images]);
 
   return (
     <div className="bg-[#121212] pl-[60px] lg:pl-[30px] text-white flex flex-col items-center pt-[20px] pb-[120px] lg:pb-[60px]">

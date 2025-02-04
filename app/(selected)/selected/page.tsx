@@ -42,11 +42,11 @@ export default function Selected() {
           Selected <br /> Works
         </h2>
       </div>
-      <div className="w-full space-y-4">
+      <div className="w-full  space-y-4">
         {works.map((item, index) => (
           <div key={index} className="border-b border-[#202020] py-4">
             <div
-              className=" justify-between px-[60px] lg:px-[30px] items-center cursor-pointer py-2 gap-7 lg:grid grid grid-cols-[33%_33%_33%] lg:gap-0 sm:grid-cols-[33%_53%_13%]"
+              className=" justify-between px-[60px] lg:px-[30px] items-center cursor-pointer py-2 lg:grid grid grid-cols-[33%_33%_33%] lg:gap-0 sm:grid-cols-[33%_53%_13%] lg:h-[50px]"
               onClick={() => toggleDropdown(index)}
             >
               {/* Render logo image if available, otherwise render text title */}
@@ -58,7 +58,7 @@ export default function Selected() {
                       alt="Logo"
                       width={100}
                       height={50}
-                      className="w-[auto] h-[20px] object-contain flex justify-start items-start flex-col"
+                      className="w-[auto] h-[18px] lg:h-[24px] object-contain flex justify-start items-start flex-col"
                     />
                   </div>
                 ) : (

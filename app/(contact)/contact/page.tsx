@@ -17,11 +17,11 @@ export default async function Contact() {
   );
 
   return (
-    <div id="contact" className="flex bg-[#FBF7F0] px-[60px] lg:px-[30px] flex-col items-center justify-center py-12 relative">
+    <div id="contact" className="flex bg-[#FBF7F0] px-[60px] py-[60px] mt-[36px] lg:px-[30px] flex-col items-center justify-center  relative  lg:py-[60px] lg:mt-[36px]">
       {/* Image Gallery with Overlay */}
-      <div className="flex w-full justify-between gap-[10px]  lg:items-center">
+      <div className="flex w-full justify-between gap-[10px]  lg:justify-between lg:items-center lg:flex ">
         {data.images.map((image, index) => (
-          <div key={index} className="relative flex-1 lg:w-[90%]">
+          <div key={index} className="relative  ">
             <img
               src={urlFor(image).width(600).url()}
               alt={`Contact ${index + 1}`}
