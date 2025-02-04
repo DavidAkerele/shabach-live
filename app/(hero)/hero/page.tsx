@@ -2,23 +2,23 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
-import client, { urlFor } from '@/lib/sanity'; // Import the helper function
+import client, { urlFor } from '@/lib/sanity';
 
 interface ImageItem {
-  src: any; // Sanity image object (not just string)
-  brand: any; // Sanity image object (not just string)
+  src: any;
+  brand: any;
 }
 
 export default function Hero() {
   const [images, setImages] = useState<ImageItem[]>([]);
   const scrollRef = useRef<HTMLDivElement | null>(null);
+  let scrollTimeout: NodeJS.Timeout | null = null;
 
   useEffect(() => {
     const fetchHeroImages = async () => {
       try {
-        // Fetch hero images from Sanity
         const data = await client.fetch(`*[_type == "heroImages"][0] {images}`);
-        if (data && data.images) {
+        if (data?.images) {
           setImages(data.images);
         }
       } catch (error) {
@@ -33,27 +33,47 @@ export default function Hero() {
     const scrollContainer = scrollRef.current;
     if (!scrollContainer) return;
 
-    let index = 0;
-    const scrollSpeed = 4000; // Change speed here (in milliseconds)
-
-    const scrollImages = () => {
+    const handleScrollEnd = () => {
       if (!scrollContainer) return;
 
       const children = scrollContainer.children as HTMLCollectionOf<HTMLElement>;
-      if (index >= children.length / 2) {
-        scrollContainer.scrollTo({ left: 0, behavior: 'instant' });
-        index = 0;
+      let closestIndex = 0;
+      let minDistance = Number.MAX_VALUE;
+
+      for (let i = 0; i < children.length; i++) {
+        const distance = Math.abs(
+          children[i].offsetLeft - scrollContainer.scrollLeft
+        );
+
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestIndex = i;
+        }
       }
 
-      const nextPosition = children[index].offsetLeft;
-      scrollContainer.scrollTo({ left: nextPosition, behavior: 'smooth' });
+      scrollContainer.scrollTo({
+        left: children[closestIndex].offsetLeft,
+        behavior: 'smooth',
+      });
 
-      index++;
+      // Infinite Loop Logic: When we reach the last set of images, reset to the start
+      if (closestIndex >= children.length / 2) {
+        setTimeout(() => {
+          scrollContainer.scrollTo({ left: 0, behavior: 'instant' });
+        }, 500); // Small delay to make it seamless
+      }
     };
 
-    const interval = setInterval(scrollImages, scrollSpeed);
+    const handleScroll = () => {
+      if (scrollTimeout) clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(handleScrollEnd, 250); // Increased debounce for smoother feel
+    };
 
-    return () => clearInterval(interval);
+    scrollContainer.addEventListener('scroll', handleScroll);
+
+    return () => {
+      scrollContainer.removeEventListener('scroll', handleScroll);
+    };
   }, [images]);
 
   return (
@@ -61,8 +81,9 @@ export default function Hero() {
       <div className="relative w-full overflow-hidden">
         <div
           ref={scrollRef}
-          className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide custom-scrollbar scroll-smooth"
+          className="flex gap-6 overflow-x-auto whitespace-nowrap scrollbar-hide custom-scrollbar scroll-smooth"
         >
+          {/* Duplicate images for the infinite scroll effect */}
           {[...images, ...images].map((image, index) => (
             <div key={index} className="snap-start flex flex-col items-center min-w-[400px] w-full lg:items-left lg:justify-start lg:min-w-[289px]">
               <Image
