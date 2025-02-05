@@ -24,7 +24,7 @@ const Navbar: React.FC = () => {
             <li key={link.name} className="text-center justify-center flex">
               <Link
                 href={link.url}
-                className=" text-[20px] hover:cursor-pointer leading-[24.2px]  hover:underline"
+                className=" text-[20px] font-[500] hover:cursor-pointer leading-[24.2px]  hover:underline"
               >
                 {link.name}
               </Link>
