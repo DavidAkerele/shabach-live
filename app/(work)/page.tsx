@@ -16,7 +16,7 @@ export const metadata = {
     type: "website",
     images: [
       {
-        url: "https://opengraph.b-cdn.net/production/images/b747bc85-bbb9-4510-bd11-c5a9d70fec74.jpg",
+        url: "/ogimage.jpg", // Reference from public folder
         width: 1200,
         height: 630,
         alt: "Shabach Rotimi - Photographer & Videographer",
@@ -28,10 +28,11 @@ export const metadata = {
     title: "Shabach Rotimi",
     description: "Photographer & Videographer",
     images: [
-      "https://opengraph.b-cdn.net/production/images/b747bc85-bbb9-4510-bd11-c5a9d70fec74.jpg",
+      "/ogimage.jpg", // Reference from public folder
     ],
   },
 };
+
 
 export default function Work() {
   return (
