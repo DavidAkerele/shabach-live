@@ -8,7 +8,7 @@ import Contact from "@/app/(contact)/contact/page";
 export const metadata = {
   title: "Shabach Rotimi",
   description: "Photographer & Videographer",
-  themeColor: "#000000",
+  // themeColor: "#000000",
   openGraph: {
     title: "Shabach Rotimi",
     description: "Photographer & Videographer",

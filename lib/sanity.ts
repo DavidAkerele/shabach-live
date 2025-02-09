@@ -13,4 +13,3 @@ const builder = imageUrlBuilder(client);
 export const urlFor = (source: any) => builder.image(source);
 
 export default client;
-

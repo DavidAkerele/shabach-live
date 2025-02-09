@@ -54,11 +54,11 @@ export default function Selected() {
                 {item.logo ? (
                   <div className="w-full items-start flex justify-start">
                     <Image
-                      src={urlFor(item.logo).width(100).height(50).url() || ""}
+                      src={urlFor(item.logo).width(100).height(80).url() || ""}
                       alt="Logo"
                       width={100}
                       height={50}
-                      className="w-[auto] h-[18px] lg:h-[24px] object-contain flex justify-start items-start flex-col"
+                      className="w-[auto] h-[40px] lg:h-[24px] object-contain flex justify-start items-start flex-col"
                     />
                   </div>
                 ) : (
@@ -67,7 +67,8 @@ export default function Selected() {
               </span>
 
               <span className="text-white flex-1 sm:flex-2 text-center lg:text-[16px] flex items-center justify-center whitespace-nowrap">
-                EOY Party{" "}
+                {item.title}
+                {/* EOY Party */}
                 <span className="text-[#202020] pl-[12px] lg:pl-[6px]">
                   {item.year}
                 </span>
