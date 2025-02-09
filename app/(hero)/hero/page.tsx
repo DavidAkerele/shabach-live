@@ -21,8 +21,11 @@ export default function Hero() {
       try {
         const data = await client.fetch(`*[_type == "heroMedia"][0] { media }`);
         console.log("Fetched media:", data); // ✅ Log data to debug
+
         if (data?.media) {
-          setMedia(data.media);
+          // ✅ Filter out items without src or videoUrl
+          const validMedia = data.media.filter(item => item.src || item.videoUrl);
+          setMedia(validMedia);
         }
       } catch (error) {
         console.error("Error fetching hero media:", error);
@@ -90,12 +93,12 @@ export default function Hero() {
           {[...media, ...media].map((item, index) => (
             <div
               key={index}
-              className="snap-start flex flex-col items-center min-w-[400px] w-full  lg:items-left lg:justify-start lg:min-w-[289px]"
+              className="snap-start flex flex-col items-center min-w-[400px] w-full lg:items-left lg:justify-start lg:min-w-[289px]"
             >
               {/* ✅ Render Image or Video */}
-              {item.type === "image" ? (
+              {item.type === "image" && item.src ? (
                 <Image
-                  src={urlFor(item.src).width(400).height(600).url() || ""}
+                  src={urlFor(item.src)?.width(400)?.height(600)?.url() || ""}
                   alt="Image"
                   width={400}
                   height={300}
@@ -110,21 +113,21 @@ export default function Hero() {
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                 />
-              ) : (
+              ) : item.videoUrl ? (
                 <video
-                  src={item.videoUrl || ""}
+                  src={item.videoUrl}
                   className="w-full h-[600px] lg:w-[289px] lg:h-[434px] object-cover"
                   autoPlay
                   loop
                   muted
                 />
-              )}
+              ) : null}
 
               {/* ✅ Brand Logo (if available) */}
               {item.brand && (
                 <div className="w-full flex justify-start mt-3">
                   <Image
-                    src={urlFor(item.brand).width(100).height(50).url() || ""}
+                    src={urlFor(item.brand)?.width(100)?.height(50)?.url() || ""}
                     alt="Brand logo"
                     width={100}
                     height={50}
