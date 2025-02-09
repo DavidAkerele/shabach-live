@@ -4,11 +4,12 @@ import React, { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import client, { urlFor } from "@/lib/sanity";
 
+// Define a more structured media item type
 interface MediaItem {
   type: "image" | "video";
-  src?: any;
+  src?: { _type: "image"; asset: { _ref: string } };
   videoUrl?: string;
-  brand?: any;
+  brand?: { _type: "image"; asset: { _ref: string } };
 }
 
 export default function Hero() {
@@ -16,15 +17,17 @@ export default function Hero() {
   const scrollRef = useRef<HTMLDivElement | null>(null);
   let scrollTimeout: NodeJS.Timeout | null = null;
 
+  // Fetch media items from Sanity
   useEffect(() => {
     const fetchHeroMedia = async () => {
       try {
         const data = await client.fetch(`*[_type == "heroMedia"][0] { media }`);
-        console.log("Fetched media:", data); // ✅ Log data to debug
+        console.log("Fetched media:", data);
 
         if (data?.media) {
-          // ✅ Filter out items without src or videoUrl
-          const validMedia = data.media.filter(item => item.src || item.videoUrl);
+          const validMedia = data.media.filter(
+            (item: MediaItem) => item.src || item.videoUrl
+          );
           setMedia(validMedia);
         }
       } catch (error) {
@@ -35,6 +38,7 @@ export default function Hero() {
     fetchHeroMedia();
   }, []);
 
+  // Scroll behavior for infinite scrolling
   useEffect(() => {
     const scrollContainer = scrollRef.current;
     if (!scrollContainer) return;
@@ -42,8 +46,7 @@ export default function Hero() {
     const handleScrollEnd = () => {
       if (!scrollContainer) return;
 
-      const children =
-        scrollContainer.children as HTMLCollectionOf<HTMLElement>;
+      const children = scrollContainer.children as HTMLCollectionOf<HTMLElement>;
       let closestIndex = 0;
       let minDistance = Number.MAX_VALUE;
 
@@ -80,7 +83,7 @@ export default function Hero() {
     return () => {
       scrollContainer.removeEventListener("scroll", handleScroll);
     };
-  }, [media]);
+  }, [media.length]); // Depend only on the length to avoid unnecessary re-renders
 
   return (
     <div className="bg-[#121212] pl-[60px] lg:pl-[30px] text-white flex flex-col items-center pt-[20px] pb-[120px] lg:pb-[60px]">
@@ -89,7 +92,6 @@ export default function Hero() {
           ref={scrollRef}
           className="flex gap-6 overflow-x-auto whitespace-nowrap scrollbar-hide custom-scrollbar scroll-smooth"
         >
-          {/* Duplicate media for infinite scroll effect */}
           {[...media, ...media].map((item, index) => (
             <div
               key={index}
@@ -105,7 +107,6 @@ export default function Hero() {
                   className="lg:w-[289px] lg:h-[434px]"
                 />
               ) : item.videoUrl?.includes("youtube.com") ? (
-                // ✅ Convert YouTube Shorts URL to embeddable format
                 <iframe
                   src={item.videoUrl.replace("shorts/", "embed/")}
                   className="w-full h-[600px]"
