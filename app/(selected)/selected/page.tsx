@@ -3,15 +3,14 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import client, { urlFor } from "@/lib/sanity"; // Import the helper function
-
 import { cn } from "@/lib/utils";
 
 interface WorkItem {
   title: string;
-  logo: any; // Sanity image object
+  logoUrl?: string; // Use direct URL from Sanity
   year: string;
   description: string;
-  images: any[]; // Sanity image object
+  imageUrls: string[]; // Array of image URLs
 }
 
 export default function Selected() {
@@ -25,7 +24,15 @@ export default function Selected() {
   useEffect(() => {
     const fetchWorks = async () => {
       try {
-        const data = await client.fetch('*[_type == "selectedWorks"]');
+        const data = await client.fetch(`
+          *[_type == "selectedWorks"]{
+            title,
+            "logoUrl": logo.asset->url,
+            year,
+            description,
+            "imageUrls": images[].asset->url
+          }
+        `);
         setWorks(data);
       } catch (error) {
         console.error("Error fetching works:", error);
@@ -42,23 +49,22 @@ export default function Selected() {
           Selected <br /> Works
         </h2>
       </div>
-      <div className="w-full  space-y-4">
+      <div className="w-full space-y-4">
         {works.map((item, index) => (
           <div key={index} className="border-b border-[#202020] py-4">
             <div
-              className=" justify-between px-[60px] lg:px-[30px] items-center cursor-pointer py-2 lg:grid grid grid-cols-[33%_33%_33%] lg:gap-0 sm:grid-cols-[33%_53%_13%] lg:h-[50px]"
+              className="justify-between px-[60px] lg:px-[30px] items-center cursor-pointer py-2 lg:grid grid grid-cols-[33%_33%_33%] lg:gap-0 sm:grid-cols-[33%_53%_13%] lg:h-[50px]"
               onClick={() => toggleDropdown(index)}
             >
-              {/* Render logo image if available, otherwise render text title */}
-              <span className="text-xl  font-semibold flex-1">
-                {item.logo ? (
+              <span className="text-xl font-semibold flex-1">
+                {item.logoUrl ? (
                   <div className="w-full items-start flex justify-start">
                     <Image
-                      src={urlFor(item.logo).width(100).height(80).url() || ""}
+                      src={item.logoUrl}
                       alt="Logo"
                       width={100}
                       height={50}
-                      className="w-[auto] h-[40px] lg:h-[24px] object-contain flex justify-start items-start flex-col"
+                      className="w-auto h-[40px] lg:h-[24px] object-contain flex justify-start items-start flex-col"
                     />
                   </div>
                 ) : (
@@ -68,17 +74,15 @@ export default function Selected() {
 
               <span className="text-white flex-1 sm:flex-2 text-center lg:text-[16px] flex items-center justify-center whitespace-nowrap">
                 {item.title}
-                {/* EOY Party */}
                 <span className="text-[#202020] pl-[12px] lg:pl-[6px]">
                   {item.year}
                 </span>
               </span>
-              <span className="  text-right text-[24px] font-[200] ">
+              <span className="text-right text-[24px] font-[200]">
                 {openIndex === index ? "−" : "+"}
               </span>
             </div>
 
-            {/* {openIndex === index && ( */}
             <div
               className={cn(
                 "mt-4 overflow-hidden flex gap-6 ml-[60px] lg:ml-[30px]",
@@ -88,23 +92,22 @@ export default function Selected() {
               )}
               style={{ transition: "0.3s ease-in-out" }}
             >
-              <div className="w-[full] flex gap-4 scrollbar-hide overflow-x-auto snap-x snap-mandatory scroll-smooth custom-scrollbar">
-                <div className=" lg:w-[289px] w-[373px]">
-                  <p className=" text-gray-300 lg:w-[289px] w-[373px] ">
+              <div className="w-full flex gap-4 scrollbar-hide overflow-x-auto snap-x snap-mandatory scroll-smooth custom-scrollbar">
+                <div className="lg:w-[289px] w-[373px]">
+                  <p className="text-gray-300 lg:w-[289px] w-[373px]">
                     {item.description}
                   </p>
                 </div>
-                {item.images.map((image, imgIndex) => (
+                {item.imageUrls.map((imageUrl, imgIndex) => (
                   <img
                     key={imgIndex}
-                    src={urlFor(image).url() || ""}
+                    src={imageUrl || "/fallback.jpg"} // Fallback image if URL is missing
                     alt={`Gallery ${imgIndex}`}
-                    className=" lg:w-[90vw] h-[380px] snap lg:h-[321.46px]"
+                    className="lg:w-[90vw] h-[380px] snap lg:h-[321.46px]"
                   />
                 ))}
               </div>
             </div>
-            {/* )} */}
           </div>
         ))}
       </div>
