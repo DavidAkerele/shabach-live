@@ -128,7 +128,7 @@ export default function Hero() {
                   autoPlay
                   loop
                   muted
-                  controls
+                  // controls
                 />
               ) : null}
 
