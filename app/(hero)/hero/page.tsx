@@ -4,7 +4,6 @@ import React, { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import client, { urlFor } from "@/lib/sanity";
 
-// Define a more structured media item type
 interface MediaItem {
   type: "image" | "video";
   src?: { _type: "image"; asset: { _ref: string } };
@@ -17,7 +16,6 @@ export default function Hero() {
   const scrollRef = useRef<HTMLDivElement | null>(null);
   let scrollTimeout: NodeJS.Timeout | null = null;
 
-  // Fetch media items from Sanity
   useEffect(() => {
     const fetchHeroMedia = async () => {
       try {
@@ -38,7 +36,6 @@ export default function Hero() {
     fetchHeroMedia();
   }, []);
 
-  // Scroll behavior for infinite scrolling
   useEffect(() => {
     const scrollContainer = scrollRef.current;
     if (!scrollContainer) return;
@@ -83,14 +80,18 @@ export default function Hero() {
     return () => {
       scrollContainer.removeEventListener("scroll", handleScroll);
     };
-  }, [media.length]); // Depend only on the length to avoid unnecessary re-renders
+  }, [media.length]);
 
-  const convertToRawGitHubURL = (url: string): string => {
+  const processVideoURL = (url: string): string => {
+    if (!url.startsWith("http")) {
+      url = "https://" + url;
+    }
     if (url.includes("github.com") && url.includes("/blob/")) {
       return url.replace("github.com", "raw.githubusercontent.com").replace("/blob/", "/");
     }
-    return url; // Return original URL if it's not a GitHub blob link
+    return url;
   };
+  
 
   return (
     <div className="bg-[#121212] pl-[60px] lg:pl-[30px] text-white flex flex-col items-center pt-[20px] pb-[120px] lg:pb-[60px]">
@@ -104,7 +105,6 @@ export default function Hero() {
               key={index}
               className="snap-start flex flex-col items-center min-w-[400px] w-full lg:items-left lg:justify-start lg:min-w-[289px]"
             >
-              {/* ✅ Render Image or Video */}
               {item.type === "image" && item.src ? (
                 <Image
                   src={urlFor(item.src)?.width(400)?.height(600)?.url() || ""}
@@ -123,15 +123,15 @@ export default function Hero() {
                 />
               ) : item.videoUrl ? (
                 <video
-                  src={convertToRawGitHubURL(item.videoUrl)} // ✅ Convert GitHub URL if necessary
+                  src={processVideoURL(item.videoUrl)}
                   className="w-full h-[600px] lg:w-[289px] lg:h-[434px] object-cover"
                   autoPlay
                   loop
                   muted
+                  controls
                 />
               ) : null}
 
-              {/* ✅ Brand Logo (if available) */}
               {item.brand && (
                 <div className="w-full flex justify-start mt-3">
                   <Image

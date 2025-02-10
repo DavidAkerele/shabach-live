@@ -8,7 +8,7 @@ import Contact from "@/app/(contact)/contact/page";
 export const metadata = {
   title: "Shabach Rotimi",
   description: "Photographer & Videographer",
-  // themeColor: "#000000",
+  metadataBase: new URL("https://rotimishabach.vercel.app/"), // Add this
   openGraph: {
     title: "Shabach Rotimi",
     description: "Photographer & Videographer",
@@ -16,7 +16,7 @@ export const metadata = {
     type: "website",
     images: [
       {
-        url: "/ogimage.jpg", // Reference from public folder
+        url: "/ogimage.jpg",
         width: 1200,
         height: 630,
         alt: "Shabach Rotimi - Photographer & Videographer",
@@ -28,10 +28,11 @@ export const metadata = {
     title: "Shabach Rotimi",
     description: "Photographer & Videographer",
     images: [
-      "/ogimage.jpg", // Reference from public folder
+      "/ogimage.jpg",
     ],
   },
 };
+
 
 
 export default function Work() {
