@@ -98,14 +98,14 @@ export default function Selected() {
                     {item.description}
                   </p>
                 </div>
-                {item.imageUrls.map((imageUrl, imgIndex) => (
-                  <img
-                    key={imgIndex}
-                    src={imageUrl || "/fallback.jpg"} // Fallback image if URL is missing
-                    alt={`Gallery ${imgIndex}`}
-                    className="lg:w-[90vw] h-[380px] snap lg:h-[321.46px]"
-                  />
-                ))}
+                {(item.imageUrls || []).map((imageUrl, imgIndex) => (
+  <img
+    key={imgIndex}
+    src={imageUrl || "/fallback.jpg"}
+    alt={`Gallery ${imgIndex}`}
+    className="lg:w-[90vw] h-[380px] snap lg:h-[321.46px]"
+  />
+))}
               </div>
             </div>
           </div>
